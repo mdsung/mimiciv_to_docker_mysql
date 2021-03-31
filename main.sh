@@ -5,7 +5,9 @@
 
 ## 0. CONST
 VER=1.0
+MYSQL_USER="root"
 DOCKER_CONTAINER_NAME="mysql"
+
 ## 1. read .env file
 export $(cat .env | xargs)
 
@@ -21,17 +23,17 @@ rm -r ./physionet.org
 ## 4. unzip files
 gunzip -r .
 
-## 3. delete extra files
+## 5. delete extra files
 rm *.html *.txt
 
-## 4. download sql files
+## 6. download sql files
 wget https://raw.githubusercontent.com/MIT-LCP/mimic-iv/master/buildmimic/mysql/index.sql 
 wget https://raw.githubusercontent.com/MIT-LCP/mimic-iv/master/buildmimic/mysql/load.sql 
 
-## 5. mkdir in docker root
+## 7. mkdir in docker root
 docker exec $DOCKER_CONTAINER_NAME mkdir mimic
 
-## 6. cp to docker mysql 
+## 8. cp to docker mysql 
 FILES=./*
 
 for f in $FILES
@@ -40,7 +42,7 @@ do
   docker cp $f $DOCKER_CONTAINER_NAME:/mimic
 done
 
-## 7. run sql in the docker
-docker exec --workdir /mimic $DOCKER_CONTAINER_NAME mysql -u root --password=$MYSQL_PASSWORD --local-infile mimiciv < load.sql > load.log
+## 9. run sql in the docker
+docker exec --workdir /mimic $DOCKER_CONTAINER_NAME mysql -u $MYSQL_USER --password=$MYSQL_PASSWORD --local-infile mimiciv < load.sql > load.log
 
-docker exec --workdir /mimic $DOCKER_CONTAINER_NAME mysql -u root --password=$MYSQL_PASSWORD --local-infile mimiciv < load.sql > load.log
+docker exec --workdir /mimic $DOCKER_CONTAINER_NAME mysql -u $MYSQL_USER --password=$MYSQL_PASSWORD --local-infile mimiciv < load.sql > load.log
