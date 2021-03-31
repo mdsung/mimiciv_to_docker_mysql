@@ -42,7 +42,8 @@ do
   docker cp $f $DOCKER_CONTAINER_NAME:/mimic
 done
 
-docker cp load_index.sql.sh $DOCKER_CONTAINER_NAME:/mimic
+docker cp drop_index.sql $DOCKER_CONTAINER_NAME:/mimic
+docker cp load_index_sql.sh $DOCKER_CONTAINER_NAME:/mimic
 docker cp .env $DOCKER_CONTAINER_NAME:/mimic
 
 ## 9. run sql in the docker
