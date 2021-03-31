@@ -42,7 +42,8 @@ do
   docker cp $f $DOCKER_CONTAINER_NAME:/mimic
 done
 
-## 9. run sql in the docker
-docker exec --workdir /mimic $DOCKER_CONTAINER_NAME mysql -u $MYSQL_USER --password=$MYSQL_PASSWORD --local-infile mimiciv < load.sql > load.log
+docker cp load_index.sql.sh $DOCKER_CONTAINER_NAME:/mimic
+docker cp .env $DOCKER_CONTAINER_NAME:/mimic
 
-docker exec --workdir /mimic $DOCKER_CONTAINER_NAME mysql -u $MYSQL_USER --password=$MYSQL_PASSWORD --local-infile mimiciv < load.sql > load.log
+## 9. run sql in the docker
+docker exec --workdir /mimic $DOCKER_CONTAINER_NAME load_index_sql.sh
