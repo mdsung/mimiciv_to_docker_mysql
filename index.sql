@@ -239,7 +239,8 @@ alter table prescriptions
   add index prescriptions_idx02 (pharmacy_id),
   add index prescriptions_idx03 (drug_type),
   add index prescriptions_idx04 (drug),
-  add index prescriptions_idx05 (starttime, stoptime);
+  add index prescriptions_idx05 (starttime, stoptime),
+  add index prescriptions_idx06 (ndc);
 
 -- -----------------
 -- procedureevents
